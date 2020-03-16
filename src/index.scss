@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  height: 100vh;
+  width: 375px;
+  font-family: 'Sarabun', sans-serif;
+
+}
+
+.container {
+  display: flex;
+  margin: 0 auto;
+  width: 343px;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #E5E5E5;
+}
