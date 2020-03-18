@@ -2,6 +2,10 @@
     width: 100%;
     margin-top: 16px;
 
+    .detail__item {
+        margin-left: 25px;
+    }
+
     .detail {
         display: flex;
         align-items: center;
@@ -45,6 +49,8 @@
         .items-quantity {
             display: flex;
             align-items: center;
+            margin-left: auto;
+            margin-right: 10px;
 
             .ellipse {
                 display: flex;
@@ -57,6 +63,7 @@
                 border-radius: 50%;
                 background: #F2F3F5;
                 color: #613EEA;
+                cursor: pointer
             }
 
             .quantity {
@@ -85,7 +92,6 @@
 
     .checkbox {
         display: flex;
-        margin-bottom: 5px;
 
         input[type="checkbox"] {
             position: absolute;
