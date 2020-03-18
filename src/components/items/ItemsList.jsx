@@ -1,40 +1,24 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as itemAction from "../../store/items.actions";
-import { setChecked, setQuntity, updateItemsList } from "./itemsGateway";
+import * as itemsGateway from "./itemsGateway";
 import moment from "moment";
 import "./items.scss";
-import {
-  itemsListSelector,
-  totalPriceSelector
-} from "../../store/items.selectors";
+import { itemsListSelector } from "../../store/items.selectors";
 
 const ItemsList = ({
   isOptionals,
   item,
   allItems,
   setAllItems,
-  totalPrice
+  setTotalPrice
 }) => {
   const [isChecked, onToggleCheck] = useState(false);
   const isBoxShadow = isOptionals ? "" : "box-shadow";
 
   const quantity = item.quantity ? item.quantity : 1;
   const price = (quantity * +item.price.slice(1)).toFixed(2);
-
-  const setTotalPrice = allItems => {
-    const selectedItem = allItems.filter(item => item.isChecked === true);
-
-    if (selectedItem < 1) return 0;
-    // selectedItem[0].price;
-    const totalPrice = selectedItem.reduce(
-      (acc, currentValue) => +acc + +currentValue.price.slice(1),
-      0
-    );
-    console.log(+totalPrice.toFixed(2));
-  };
-
-  setTotalPrice(allItems);
+  setTotalPrice(itemsGateway.totalPrice(allItems));
 
   return (
     <li className={`detail ${isBoxShadow}`}>
@@ -44,7 +28,13 @@ const ItemsList = ({
           onClick={() => {
             onToggleCheck(!isChecked);
             setAllItems(
-              updateItemsList(allItems, item._id, setChecked, !isChecked, item)
+              itemsGateway.updateItemsList(
+                allItems,
+                item._id,
+                itemsGateway.setChecked,
+                !isChecked,
+                item
+              )
             );
           }}
         >
@@ -68,7 +58,13 @@ const ItemsList = ({
             className="minus ellipse"
             onClick={() =>
               setAllItems(
-                updateItemsList(allItems, item._id, setQuntity, -1, item)
+                itemsGateway.updateItemsList(
+                  allItems,
+                  item._id,
+                  itemsGateway.setQuntity,
+                  -1,
+                  item
+                )
               )
             }
             disabled={+quantity === 1 ? true : !isChecked}
@@ -80,7 +76,13 @@ const ItemsList = ({
             className="plus ellipse"
             onClick={() =>
               setAllItems(
-                updateItemsList(allItems, item._id, setQuntity, 1, item)
+                itemsGateway.updateItemsList(
+                  allItems,
+                  item._id,
+                  itemsGateway.setQuntity,
+                  1,
+                  item
+                )
               )
             }
             disabled={!isChecked}
@@ -116,8 +118,7 @@ const ItemsList = ({
 };
 
 const mapStateToProps = state => ({
-  allItems: itemsListSelector(state),
-  totalPrice: totalPriceSelector(state)
+  allItems: itemsListSelector(state)
 });
 
 export default connect(mapStateToProps, itemAction)(ItemsList);

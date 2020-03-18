@@ -1,10 +1,7 @@
-import { ALL_ITEMS } from './items.actions';
+import { ALL_ITEMS, TOTAL_PRICE } from './items.actions';
 
 const initialState = {
-    items: [], selectedItems: {
-        totalPrice: 0,
-        items: []
-    }
+    items: [], totalPrice: 0
 };
 
 const itemsReducer = (state = initialState, action) => {
@@ -14,6 +11,13 @@ const itemsReducer = (state = initialState, action) => {
                 ...state,
                 items: action.payload.items
             };
+
+        case TOTAL_PRICE: {
+            return {
+                ...state,
+                totalPrice: action.payload.totalPrice
+            }
+        }
 
         default: return state;
     }

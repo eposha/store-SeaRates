@@ -3,11 +3,11 @@ export const itemsListSelector = state => {
 };
 
 export const totalPriceSelector = state => {
-    return state.items.selectedItems.totalPrice
+    return state.items.totalPrice
 };
 
 export const selectedItemsSelector = state => {
-    return state.items.selectedItems.items
+    return itemsListSelector(state).filter(item => item.isChecked === true)
 };
 
 
