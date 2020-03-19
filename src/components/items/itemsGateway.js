@@ -38,3 +38,29 @@ export const totalPrice = allItems => {
     );
     return +totalPrice.toFixed(2);
 };
+
+export const setOrder = (selectedItems, id, idx, finalOrder) => {
+    const findSelectedItem = selectedItems.find((item, index) => index === idx);
+    const findAdditionalItem = findSelectedItem.additional.find(
+        item => item._id === id
+    );
+    const copyfinalOrder = Object.assign({}, finalOrder);
+    const hasAdditional = copyfinalOrder.additionalItems.find(
+        item => item._id === findAdditionalItem._id
+    );
+    if (hasAdditional) {
+        const filterItem = copyfinalOrder.additionalItems.filter(
+            item => item._id !== findAdditionalItem._id
+        );
+        copyfinalOrder.additionalItems = filterItem;
+        copyfinalOrder.finalPrice -= +hasAdditional.price.slice(1);
+        return copyfinalOrder;
+    } else {
+        copyfinalOrder.additionalItems = [
+            ...copyfinalOrder.additionalItems,
+            findAdditionalItem
+        ];
+        copyfinalOrder.finalPrice += +findAdditionalItem.price.slice(1);
+        return copyfinalOrder;
+    }
+};

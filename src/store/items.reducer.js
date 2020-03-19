@@ -1,7 +1,7 @@
-import { ALL_ITEMS, TOTAL_PRICE } from './items.actions';
+import { ALL_ITEMS, TOTAL_PRICE, FINAL_ORDER } from './items.actions';
 
 const initialState = {
-    items: [], totalPrice: 0
+    items: [], totalPrice: 0, finalOrder: { finalPrice: 0, mainItems: [], additionalItems: [] }
 };
 
 const itemsReducer = (state = initialState, action) => {
@@ -12,12 +12,17 @@ const itemsReducer = (state = initialState, action) => {
                 items: action.payload.items
             };
 
-        case TOTAL_PRICE: {
+        case TOTAL_PRICE:
             return {
                 ...state,
                 totalPrice: action.payload.totalPrice
             }
-        }
+
+        case FINAL_ORDER:
+            return {
+                ...state,
+                finalOrder: action.payload.finalOrder
+            }
 
         default: return state;
     }

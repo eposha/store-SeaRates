@@ -6,9 +6,14 @@ export const totalPriceSelector = state => {
     return state.items.totalPrice
 };
 
-export const selectedItemsSelector = state => {
-    return itemsListSelector(state).filter(item => item.isChecked === true)
+export const additionalItemsSelector = state => {
+    return itemsListSelector(state).filter(item => item.isChecked === true);
 };
+
+export const finalOrderSelector = state => {
+    return state.items.finalOrder
+};
+
 
 
 

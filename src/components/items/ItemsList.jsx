@@ -14,27 +14,20 @@ const ItemsList = ({
   setTotalPrice
 }) => {
   const [isChecked, onToggleCheck] = useState(false);
-  const isBoxShadow = isOptionals ? "" : "box-shadow";
-
+  const { setChecked, setQuntity, updateItemsList, totalPrice } = itemsGateway;
   const quantity = item.quantity ? item.quantity : 1;
   const price = (quantity * +item.price.slice(1)).toFixed(2);
-  setTotalPrice(itemsGateway.totalPrice(allItems));
+  setTotalPrice(totalPrice(allItems));
 
   return (
-    <li className={`detail ${isBoxShadow}`}>
+    <li className="detail box-shadow">
       <div className="wrapper-checkbox">
         <div
           className="checkbox"
           onClick={() => {
             onToggleCheck(!isChecked);
             setAllItems(
-              itemsGateway.updateItemsList(
-                allItems,
-                item._id,
-                itemsGateway.setChecked,
-                !isChecked,
-                item
-              )
+              updateItemsList(allItems, item._id, setChecked, !isChecked, item)
             );
           }}
         >
@@ -52,45 +45,31 @@ const ItemsList = ({
         </div>
       </div>
 
-      {isOptionals ? null : (
-        <div className="items-quantity">
-          <button
-            className="minus ellipse"
-            onClick={() =>
-              setAllItems(
-                itemsGateway.updateItemsList(
-                  allItems,
-                  item._id,
-                  itemsGateway.setQuntity,
-                  -1,
-                  item
-                )
-              )
-            }
-            disabled={+quantity === 1 ? true : !isChecked}
-          >
-            -
-          </button>
-          <span className="quantity">{quantity}</span>
-          <button
-            className="plus ellipse"
-            onClick={() =>
-              setAllItems(
-                itemsGateway.updateItemsList(
-                  allItems,
-                  item._id,
-                  itemsGateway.setQuntity,
-                  1,
-                  item
-                )
-              )
-            }
-            disabled={!isChecked}
-          >
-            +
-          </button>
-        </div>
-      )}
+      <div className="items-quantity">
+        <button
+          className="minus ellipse"
+          onClick={() =>
+            setAllItems(
+              updateItemsList(allItems, item._id, setQuntity, -1, item)
+            )
+          }
+          disabled={+quantity === 1 ? true : !isChecked}
+        >
+          -
+        </button>
+        <span className="quantity">{quantity}</span>
+        <button
+          className="plus ellipse"
+          onClick={() =>
+            setAllItems(
+              updateItemsList(allItems, item._id, setQuntity, 1, item)
+            )
+          }
+          disabled={!isChecked}
+        >
+          +
+        </button>
+      </div>
 
       <div className="item-price">
         {`$${price}`}
