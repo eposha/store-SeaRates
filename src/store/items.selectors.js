@@ -3,12 +3,17 @@ export const itemsListSelector = state => {
 };
 
 export const totalPriceSelector = state => {
-    return state.items.selectedItems.totalPrice
+    return state.items.totalPrice
 };
 
-export const selectedItemsSelector = state => {
-    return state.items.selectedItems.items
+export const additionalItemsSelector = state => {
+    return itemsListSelector(state).filter(item => item.isChecked === true);
 };
+
+export const finalOrderSelector = state => {
+    return state.items.finalOrder
+};
+
 
 
 

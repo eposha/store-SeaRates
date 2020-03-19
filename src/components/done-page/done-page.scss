@@ -3,13 +3,16 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    position: relative;
     margin: auto;
     width: 153px;
-    height: 153px;
+    height: 100vh;
 
-    border-radius: 50%;
-    background: rgba(97, 62, 234, 0.1);
+    .ellipce-done {
+        position: relative;
+        height: 153px;
+        border-radius: 50%;
+        background: rgba(97, 62, 234, 0.1);
+    }
 
     svg {
         margin-left: 20px;
@@ -17,8 +20,7 @@
     }
 
     .text-done {
-        position: absolute;
-        bottom: -50px;
+        margin-top: 25px;
         letter-spacing: 0.1px;
         font-weight: 600;
         font-size: 25px;
