@@ -1,7 +1,7 @@
 import { GET_ALL_ITEMS, CREATE_FINAL_ORDER } from './items.actions';
 
 const initialState = {
-    items: [], totalPrice: 0, finalOrder: { finalPrice: 0, mainItems: [], additionalItems: [] }
+    items: [], finalOrder: { finalPrice: 0, mainItems: [], additionalItems: [] }
 };
 
 const itemsReducer = (state = initialState, action) => {
