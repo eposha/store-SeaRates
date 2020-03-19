@@ -7,12 +7,12 @@ const Header = ({ totalPrice }) => {
     <header className="header">
       <div className="container">
         <div className="header-wrapper">
-          <div src="#" className="logo" />
+          <div className="logo" />
           <div className="total-price">{totalSum}</div>
           <div className="burger-menu">
-            <span className="line"></span>
-            <span className="line"></span>
-            <span className="line"></span>
+            <span className="line" />
+            <span className="line" />
+            <span className="line" />
           </div>
         </div>
       </div>

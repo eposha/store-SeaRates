@@ -4,20 +4,16 @@ import * as itemAction from "../../store/items.actions";
 import * as itemsGateway from "./itemsGateway";
 import moment from "moment";
 import "./items.scss";
-import { itemsListSelector } from "../../store/items.selectors";
+import {
+  itemsListSelector,
+  mainPriceSelector
+} from "../../store/items.selectors";
 
-const ItemsList = ({
-  isOptionals,
-  item,
-  allItems,
-  setAllItems,
-  setTotalPrice
-}) => {
+const ItemsList = ({ isOptionals, item, allItems, setAllItems }) => {
   const [isChecked, onToggleCheck] = useState(false);
-  const { setChecked, setQuntity, updateItemsList, totalPrice } = itemsGateway;
+  const { setChecked, setQuntity, updateItemsList } = itemsGateway;
   const quantity = item.quantity ? item.quantity : 1;
   const price = (quantity * +item.price.slice(1)).toFixed(2);
-  setTotalPrice(totalPrice(allItems));
 
   return (
     <li className="detail box-shadow">

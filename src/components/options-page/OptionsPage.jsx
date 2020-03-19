@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   additionalItemsSelector,
-  totalPriceSelector,
+  mainPriceSelector,
   finalOrderSelector
 } from "../../store/items.selectors";
 import Header from "../header/Header";
@@ -13,19 +13,17 @@ import "./options-page.scss";
 
 const OptionsPage = ({
   additionalItems,
-  totalPrice,
+  mainPrice,
   additionalPrice,
   finalOrder
 }) => {
-  const fullPrice = !additionalPrice
-    ? totalPrice
-    : totalPrice + additionalPrice;
+  const fullPrice = !additionalPrice ? mainPrice : mainPrice + additionalPrice;
   return (
     <div className="options-page page">
       <Header totalPrice={false} />
       <div className="container">
         <div className="options-dscr">
-          <div className="options-price">{`$${totalPrice}`}</div>
+          <div className="options-price">{`$${mainPrice}`}</div>
           <span className="options-text">Price by main items</span>
         </div>
         <div className="container">
@@ -52,7 +50,7 @@ const OptionsPage = ({
           }`}</div>
         </div>
       </div>
-      <Link to="/done">
+      <Link to="/done" style={{ textDecoration: "none" }}>
         <Button type={"Confirm"} />
       </Link>
     </div>
@@ -61,7 +59,7 @@ const OptionsPage = ({
 
 const mapStateToProps = state => ({
   additionalItems: additionalItemsSelector(state),
-  totalPrice: totalPriceSelector(state),
+  mainPrice: mainPriceSelector(state),
   finalOrder: finalOrderSelector(state)
 });
 

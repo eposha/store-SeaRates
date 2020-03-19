@@ -3,21 +3,21 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   itemsListSelector,
-  totalPriceSelector
+  mainPriceSelector
 } from "../../store/items.selectors";
 import * as itemsAction from "../../store/items.actions";
 import Header from "../header/Header";
 import ItemsList from "../items/ItemsList";
 import Button from "../buttons/Button";
 
-const StartPage = ({ allItems, getAllItems, totalPrice }) => {
+const StartPage = ({ allItems, getAllItems, mainPrice }) => {
   useEffect(() => {
     getAllItems();
   }, []);
 
   return (
     <section className="start-page page">
-      <Header totalPrice={totalPrice} />
+      <Header totalPrice={mainPrice} />
       <div className="container">
         <ul className="items">
           {allItems.map(item => (
@@ -25,7 +25,7 @@ const StartPage = ({ allItems, getAllItems, totalPrice }) => {
           ))}
         </ul>
       </div>
-      <Link to="/options">
+      <Link to="/options" style={{ textDecoration: "none" }}>
         <Button type={"Buy"} />
       </Link>
     </section>
@@ -34,7 +34,7 @@ const StartPage = ({ allItems, getAllItems, totalPrice }) => {
 
 const setStateToProps = state => ({
   allItems: itemsListSelector(state),
-  totalPrice: totalPriceSelector(state)
+  mainPrice: mainPriceSelector(state)
 });
 
 export default connect(setStateToProps, itemsAction)(StartPage);

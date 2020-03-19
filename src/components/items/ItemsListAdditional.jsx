@@ -5,7 +5,7 @@ import { setOrder } from "./itemsGateway";
 import {
   additionalItemsSelector,
   finalOrderSelector,
-  totalPriceSelector
+  mainPriceSelector
 } from "../../store/items.selectors";
 import * as itemsAction from "../../store/items.actions";
 import "./items.scss";
@@ -16,7 +16,7 @@ const ItemsListAdditional = ({
   selectedItem,
   finalOrder,
   setFinalOrder,
-  totalPrice
+  mainPrice
 }) => {
   const [isChecked, onToggleCheck] = useState(false);
   const price = +item.price.slice(1);
@@ -24,7 +24,7 @@ const ItemsListAdditional = ({
   useEffect(() => {
     const copyfinalOrder = Object.assign({}, finalOrder);
     copyfinalOrder.mainItems = selectedItem;
-    copyfinalOrder.finalPrice = totalPrice;
+    copyfinalOrder.finalPrice = mainPrice;
     setFinalOrder(copyfinalOrder);
   }, []);
 
@@ -60,7 +60,7 @@ const ItemsListAdditional = ({
 const mapStateToProps = state => ({
   finalOrder: finalOrderSelector(state),
   selectedItem: additionalItemsSelector(state),
-  totalPrice: totalPriceSelector(state)
+  mainPrice: mainPriceSelector(state)
 });
 
 export default connect(mapStateToProps, itemsAction)(ItemsListAdditional);
