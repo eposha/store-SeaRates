@@ -1,43 +1,26 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import * as itemAction from "../../store/items.actions";
-import { setChecked, setQuntity, updateItemsList } from "./itemsGateway";
+import * as itemsGateway from "./itemsGateway";
 import moment from "moment";
 import "./items.scss";
-import {
-  itemsListSelector,
-  totalPriceSelector
-} from "../../store/items.selectors";
+import { itemsListSelector } from "../../store/items.selectors";
 
 const ItemsList = ({
   isOptionals,
   item,
   allItems,
   setAllItems,
-  totalPrice
+  setTotalPrice
 }) => {
   const [isChecked, onToggleCheck] = useState(false);
-  const isBoxShadow = isOptionals ? "" : "box-shadow";
-
+  const { setChecked, setQuntity, updateItemsList, totalPrice } = itemsGateway;
   const quantity = item.quantity ? item.quantity : 1;
   const price = (quantity * +item.price.slice(1)).toFixed(2);
-
-  const setTotalPrice = allItems => {
-    const selectedItem = allItems.filter(item => item.isChecked === true);
-
-    if (selectedItem < 1) return 0;
-    // selectedItem[0].price;
-    const totalPrice = selectedItem.reduce(
-      (acc, currentValue) => +acc + +currentValue.price.slice(1),
-      0
-    );
-    console.log(+totalPrice.toFixed(2));
-  };
-
-  setTotalPrice(allItems);
+  setTotalPrice(totalPrice(allItems));
 
   return (
-    <li className={`detail ${isBoxShadow}`}>
+    <li className="detail box-shadow">
       <div className="wrapper-checkbox">
         <div
           className="checkbox"
@@ -62,33 +45,31 @@ const ItemsList = ({
         </div>
       </div>
 
-      {isOptionals ? null : (
-        <div className="items-quantity">
-          <button
-            className="minus ellipse"
-            onClick={() =>
-              setAllItems(
-                updateItemsList(allItems, item._id, setQuntity, -1, item)
-              )
-            }
-            disabled={+quantity === 1 ? true : !isChecked}
-          >
-            -
-          </button>
-          <span className="quantity">{quantity}</span>
-          <button
-            className="plus ellipse"
-            onClick={() =>
-              setAllItems(
-                updateItemsList(allItems, item._id, setQuntity, 1, item)
-              )
-            }
-            disabled={!isChecked}
-          >
-            +
-          </button>
-        </div>
-      )}
+      <div className="items-quantity">
+        <button
+          className="minus ellipse"
+          onClick={() =>
+            setAllItems(
+              updateItemsList(allItems, item._id, setQuntity, -1, item)
+            )
+          }
+          disabled={+quantity === 1 ? true : !isChecked}
+        >
+          -
+        </button>
+        <span className="quantity">{quantity}</span>
+        <button
+          className="plus ellipse"
+          onClick={() =>
+            setAllItems(
+              updateItemsList(allItems, item._id, setQuntity, 1, item)
+            )
+          }
+          disabled={!isChecked}
+        >
+          +
+        </button>
+      </div>
 
       <div className="item-price">
         {`$${price}`}
@@ -116,8 +97,7 @@ const ItemsList = ({
 };
 
 const mapStateToProps = state => ({
-  allItems: itemsListSelector(state),
-  totalPrice: totalPriceSelector(state)
+  allItems: itemsListSelector(state)
 });
 
 export default connect(mapStateToProps, itemAction)(ItemsList);
