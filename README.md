@@ -30,9 +30,6 @@ The tech stack is:
 - [Sass (Scss)](https://sass-lang.com/)
 - [BEM methodology](https://en.bem.info/methodology/)
 - [JS ES6](https://en.wikipedia.org/wiki/ECMAScript)
-- [Loading Animation](https://loading.io/)
-- [Start Wars Visual](https://starwars-visualguide.com/#/)
-- [Boots Watch](https://bootswatch.com/)
 - [ReactJS](https://reactjs.org/)
 - [SPA](https://en.wikipedia.org/wiki/Single-page_application)
 
